@@ -19,11 +19,27 @@ function btnDisable() {
 
 function btnEnable() {
   fieldValidated(this);
-  if (email.value !== '' && subject.value !== '' && message.value !== '') {
-    btnSEnd.disabled = false;
+  if (this.type === 'email') {
+    emailValidated(this);
   }
+  let error = document.querySelectorAll('error')
+  if (email.value !== '' && subject.value !== '' && message.value !== '') {
+    if (error.length === 0) {
+      btnSEnd.disabled = false;
+    }
+  }
+}
 
 
+function emailValidated(input) {
+  const emailInputValue = input.value;
+  if (emailInputValue.indexOf('@') !== -1) {
+    input.style.borderBottomColor = 'green';
+    input.classList.remove('error');
+  } else {
+    input.style.borderBottomColor = 'red';
+    input.classList.add('error');
+  }
 }
 
 function fieldValidated(input) {
